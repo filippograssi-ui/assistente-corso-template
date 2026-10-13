@@ -1,0 +1,10 @@
+/node_modules
+/.next/
+/out/
+.DS_Store
+.env*
+.vercel
+# Dati personali e allegati: mai in git
+data/assistente.json
+data/assistente.json.tmp
+data/allegati/

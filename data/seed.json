@@ -1,0 +1,43 @@
+{
+  "profilo": {
+    "nome": "Prof",
+    "ruolo": "Docente",
+    "citta": "",
+    "focus": "",
+    "abitudini": [
+      { "id": "lettura", "nome": "Lettura", "tipo": "spunta" },
+      { "id": "movimento", "nome": "Movimento", "tipo": "spunta" },
+      { "id": "acqua", "nome": "Acqua", "tipo": "contatore", "obiettivo": 8 }
+    ],
+    "obiettivoCalorico": 2000
+  },
+  "catture": [],
+  "persone": [],
+  "crm": [],
+  "promemoria": [],
+  "obiettivi": { "settimana": [], "mese": [] },
+  "logGiornalieri": {},
+  "memoria": [],
+  "registro": [],
+  "aggiornamenti": null,
+  "finanza": { "spese": [] },
+  "salute": { "pesoLog": [], "allenamenti": [], "riassunto": null },
+  "review": { "ultimoRiassunto": null },
+  "scuola": {
+    "classi": [],
+    "orario": null,
+    "agenda": {},
+    "impegni": []
+  },
+  "svago": {
+    "viaggio": [],
+    "watchlist": [],
+    "posti": [],
+    "libri": [],
+    "preferenze": { "viaggio": "", "watchlist": "", "posti": "", "libri": "" }
+  },
+  "notizie": { "argomenti": [], "ultimo": null },
+  "moda": { "preferenze": "", "ultimo": null },
+  "calendario": { "eventiManuali": [] },
+  "integrazioni": { "googleCalendar": null }
+}
