@@ -1119,3 +1119,5 @@ table.fin-table td:first-child { text-align: left; font-variant-numeric: initial
   .agenda-blocco-header { flex-wrap: wrap; }
   .agenda-blocco-riepilogo { margin-left: 0; }
 }
+.impostazioni-bottone:disabled { opacity: 0.5; cursor: default; }
+.impostazioni-testo code { background: var(--surface-alt); border-radius: 4px; padding: 1px 5px; font-size: 12px; }

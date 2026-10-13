@@ -6,13 +6,34 @@ import { useEffect, useState } from "react";
 export default function ImpostazioniScreen() {
   const [nome, setNome] = useState("");
   const [salvato, setSalvato] = useState(false);
+  const [whatsapp, setWhatsapp] = useState(null); // { whatsapp, cron }
+  const [inviando, setInviando] = useState(false);
+  const [esito, setEsito] = useState(null);
 
   useEffect(() => {
     fetch("/api/operator")
       .then((r) => r.json())
       .then((p) => setNome(p.nome || ""))
       .catch(() => {});
+    fetch("/api/admin/briefing")
+      .then((r) => r.json())
+      .then(setWhatsapp)
+      .catch(() => setWhatsapp({ whatsapp: false, cron: false }));
   }, []);
+
+  async function mandaBriefing() {
+    setInviando(true);
+    setEsito(null);
+    try {
+      const res = await fetch("/api/admin/briefing", { method: "POST" });
+      const json = await res.json();
+      setEsito(json.riepilogo || json.error || "Fatto");
+    } catch (err) {
+      setEsito(err.message);
+    } finally {
+      setInviando(false);
+    }
+  }
 
   async function salva(e) {
     e.preventDefault();
@@ -39,6 +60,23 @@ export default function ImpostazioniScreen() {
         <p className="impostazioni-testo" style={{ marginTop: 10 }}>
           Il nome compare nel saluto in alto. Dopo averlo cambiato, ricarica la pagina.
         </p>
+      </section>
+      <section className="card span-2">
+        <h3>WhatsApp</h3>
+        {whatsapp && !whatsapp.whatsapp ? (
+          <p className="impostazioni-testo">
+            Non ancora collegato: servono le variabili <code>WHATSAPP_*</code> (vedi .env.example). Una volta online,
+            l&apos;assistente riceve i tuoi messaggi e ogni mattina ti manda il riassunto della giornata.
+          </p>
+        ) : (
+          <p className="impostazioni-testo">
+            Collegato. Il riassunto del mattino parte da solo ogni giorno; da qui puoi mandarlo adesso per provare.
+          </p>
+        )}
+        <button type="button" className="impostazioni-bottone" onClick={mandaBriefing} disabled={inviando || !whatsapp?.whatsapp}>
+          {inviando ? "Invio…" : "Manda ora il briefing"}
+        </button>
+        {esito && <p className="impostazioni-testo" style={{ marginTop: 8 }}>{esito}</p>}
       </section>
       <section className="card span-2">
         <h3>Backup</h3>
