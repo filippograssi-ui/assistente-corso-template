@@ -25,7 +25,11 @@ export async function POST(request) {
   const id = randomUUID();
   const nomeSuDisco = `${id}.${estensioneSicura(file.name)}`;
   const buffer = Buffer.from(await file.arrayBuffer());
-  salvaAllegato(nomeSuDisco, buffer);
+  try {
+    await salvaAllegato(nomeSuDisco, buffer, file.type || "application/octet-stream");
+  } catch (err) {
+    return NextResponse.json({ error: err.message || "Salvataggio del file fallito" }, { status: 502 });
+  }
 
   const allegato = {
     id,

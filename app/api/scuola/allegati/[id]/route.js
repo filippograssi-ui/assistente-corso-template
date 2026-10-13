@@ -23,7 +23,7 @@ export async function GET(request, { params }) {
   const state = await readState();
   const trovato = trovaAllegato(state, id);
   if (!trovato) return NextResponse.json({ error: "Allegato non trovato" }, { status: 404 });
-  const contenuto = leggiAllegato(trovato.allegato.file);
+  const contenuto = await leggiAllegato(trovato.allegato.file);
   if (!contenuto) return NextResponse.json({ error: "File non più presente su disco" }, { status: 404 });
   const inline = /^(application\/pdf|image\/)/.test(trovato.allegato.tipo);
   return new NextResponse(contenuto, {
@@ -48,6 +48,6 @@ export async function DELETE(request, { params }) {
     return s;
   });
   if (!pagina) return NextResponse.json({ error: "Allegato non trovato" }, { status: 404 });
-  eliminaAllegato(file);
+  await eliminaAllegato(file).catch(() => {});
   return NextResponse.json({ pagina });
 }
