@@ -3,6 +3,7 @@
 /out/
 .DS_Store
 .env*
+!.env.example
 .vercel
 # Dati personali e allegati: mai in git
 data/assistente.json
